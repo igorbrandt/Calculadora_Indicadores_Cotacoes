@@ -1,3 +1,3 @@
-# cotacoes_fundos
+# Protótipo | Calculadora de Indicadores | Cotações Históricas
 
-1. Dado um dicionário com os valores diários de uma cota de fundo, escreva um código em Python que calcule o retorno acumulado.
+Importe um arquivo csv contendo a Data e a Cota do fundo/carteira e selecione entre as opções disponíveis na aplicação para obter diferentes indicadores.
