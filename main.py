@@ -8,6 +8,7 @@ def main():
             Escolha entre as seguintes opções:
             1. Calcular o retorno total acumulado;
             2. Calcular volatilidade;
+            3. Calcular resultado anual;
             
             '''))
 
@@ -24,6 +25,9 @@ def main():
         elif action == 2:
             mostrar_volatilidade(open_file, initial_date, final_date)
         
+        elif action == 3:
+            mostrar_resultado_anual(open_file)
+
         else:
             print("Escolha uma opção válida. \n")
             main()
@@ -93,6 +97,26 @@ def mostrar_volatilidade(df, initial_date, final_date):
 
     return volatilidade
 
+def mostrar_resultado_anual(df):
+    # localiza datas e cotas
+    initial_date, initial_quote, final_date, final_quote = localizar_datas_e_cotas_iniciais_e_finais(df)
+
+    # calcula retorno acumulado
+    variacao = (final_quote/initial_quote)-1
+
+    # identifica quantidade de meses e anos
+    meses = (final_date.year - initial_date.year) * 12 + (final_date.month - initial_date.month) - 1
+    anos = meses / 12
+
+    resultado_anual = (1 + variacao) ** (1 / anos) - 1
+
+    print(f'''
+        Resultado Anual
+        Período: {initial_date} a {final_date}
+        Resultado: {resultado_anual * 100:.2f}%
+        ''')
+
+    return resultado_anual
 
 if __name__ == "__main__":
     main()
