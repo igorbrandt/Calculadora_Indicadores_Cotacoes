@@ -22,7 +22,6 @@ def read_csv(quotation_csv_file: str) -> pd.DataFrame:
         return df
     except:
         print("Houve algum problema na leitura do arquivo informado. Tente novamente")
-        main()
 
 def localizar_datas_e_cotas_iniciais_e_finais(df):
     initial_date = df['date'].iloc[0].date()
@@ -55,10 +54,10 @@ def mostrar_volatilidade(df, initial_date, final_date):
     volatilidade = df['retorno_diario'].std() * 100
 
     print(f'''
-          Volatilidade
-          Período: {initial_date} a {final_date}
-           {volatilidade:.2f}%
-          ''')
+        Volatilidade
+        Período: {initial_date} a {final_date}
+        {volatilidade:.2f}%
+        ''')
 
     return volatilidade
 
