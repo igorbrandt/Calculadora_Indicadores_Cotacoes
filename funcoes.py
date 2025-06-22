@@ -1,0 +1,84 @@
+import pandas as pd
+
+def read_csv(quotation_csv_file: str) -> pd.DataFrame:
+    try:
+        df = pd.read_csv(quotation_csv_file, sep=';', decimal=',')
+
+        # confere se existem ao menos dois registros
+        if len(df) < 2:
+            print("Dados insuficientes. Deve haver ao menos dois registros.")
+            return
+
+        # Converte a coluna de data para o tipo datetime e salva no DF (atribuindo df['date'])
+        df['date'] = pd.to_datetime(df['date'], errors='coerce')
+
+        # Converte a coluna de cota para o tipo número e salva no DF (atribuindo df['quote'])
+        df['quote'] = df['quote'].astype(str).str.replace('"', '').str.replace(',', '.')
+        df['quote'] = pd.to_numeric(df['quote'], errors='coerce')
+
+        # Ordena pela data ASC
+        df = df.sort_values(by='date')
+
+        return df
+    except:
+        print("Houve algum problema na leitura do arquivo informado. Tente novamente")
+        main()
+
+def localizar_datas_e_cotas_iniciais_e_finais(df):
+    initial_date = df['date'].iloc[0].date()
+    final_date = df['date'].iloc[-1].date()
+    initial_quote = float(df['quote'].iloc[0])
+    final_quote = float(df['quote'].iloc[-1])
+    return initial_date, initial_quote, final_date, final_quote
+
+def mostrar_resultado_total_acumulado(initial_date, initial_quote, final_date, final_quote):
+    # calcula o resultado
+    variacao = (final_quote/initial_quote)-1
+    resultado_acumulado = round(variacao*100,2)
+
+    print(f'''
+        Resultado Total Acumulado
+        Período: {initial_date} a {final_date}
+        Resultado: {resultado_acumulado}%
+        ''')
+    
+    return resultado_acumulado
+
+def mostrar_volatilidade(df, initial_date, final_date):
+    # Calcula o retorno diário percentual e cria uma terceira coluna no df
+    df['retorno_diario'] = df['quote'].pct_change()
+
+    # Remove valores nulos NaN do histórico (ex: primeiro valor re rentabilidade vai ser nulo)
+    df = df.dropna(subset=['retorno_diario'])
+
+    # Calcula desvio padrão dos retornos diários e transforma em %
+    volatilidade = df['retorno_diario'].std() * 100
+
+    print(f'''
+          Volatilidade
+          Período: {initial_date} a {final_date}
+           {volatilidade:.2f}%
+          ''')
+
+    return volatilidade
+
+def mostrar_resultado_anual(df):
+    # localiza datas e cotas
+    initial_date, initial_quote, final_date, final_quote = localizar_datas_e_cotas_iniciais_e_finais(df)
+
+    # calcula retorno acumulado
+    variacao = (final_quote/initial_quote)-1
+
+    # identifica quantidade de meses e anos
+    meses = (final_date.year - initial_date.year) * 12 + (final_date.month - initial_date.month) - 1
+    anos = meses / 12
+
+    resultado_anual = (1 + variacao) ** (1 / anos) - 1
+
+    print(f'''
+        Resultado Anual
+        Período: {initial_date} a {final_date}
+        Resultado: {resultado_anual * 100:.2f}%
+        ''')
+
+    return resultado_anual
