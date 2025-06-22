@@ -8,7 +8,7 @@ def main():
                                
         Escolha entre as seguintes opções:
         1. Calcular o retorno total acumulado;
-        2. Não tem segunda opção kakak
+        2. Mostrar volatilidade;
         
         '''))
     
@@ -16,13 +16,16 @@ def main():
         file_path = input('''
         Informe o nome do seu arquivo csv, contendo as cotações a serem analisadas:
         ''')
-        mostrar_resultado_total_acumulado(file_path)
+        open_file = read_csv(file_path)
+        mostrar_resultado_total_acumulado(open_file)
+    
+    elif action == 2:
+        mostrar_volatilidade(file_path)
     
     else:
         return
 
-def mostrar_resultado_total_acumulado(quotation_csv_file):
-# Abre, lê e fecha o arquivo
+def read_csv(quotation_csv_file):
     df = pd.read_csv(quotation_csv_file, sep=';', decimal=',')
 
     # confere se existem ao menos dois registros
@@ -39,7 +42,9 @@ def mostrar_resultado_total_acumulado(quotation_csv_file):
 
     # Ordena pela data ASC
     df = df.sort_values(by='date')
+    return df
 
+def mostrar_resultado_total_acumulado(df):
     # localiza datas e cotas iniciais e finais
     initial_date = df['date'].iloc[0].date()
     final_date = df['date'].iloc[-1].date()
@@ -56,6 +61,11 @@ def mostrar_resultado_total_acumulado(quotation_csv_file):
         ''')
     
     return resultado_acumulado
+
+def mostrar_volatilidade(df):
+    '''
+    Função que traz a volatilidade
+    '''
 
 if __name__ == "__main__":
     main()
