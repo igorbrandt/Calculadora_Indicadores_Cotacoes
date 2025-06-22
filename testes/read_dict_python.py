@@ -18,8 +18,11 @@ def calcular_retorno_total_acumulado_dict(cotacoes: dict) -> float:
     # Ordenar as datas para garantir a sequência cronológica
     cotacoes_ordenadas: list = sorted(cotacoes.keys())
 
+    # identifica a primeira e última datas e traz as suas cota
     ultima_cota = cotacoes[cotacoes_ordenadas[-1]]
     primeira_cota = cotacoes[cotacoes_ordenadas[0]]
+
+    # calcula o retorno percentual
     retorno = ((ultima_cota/primeira_cota) - 1)*100
     return retorno
 
