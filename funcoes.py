@@ -79,5 +79,27 @@ def mostrar_resultado_anual(df):
         Período: {initial_date} a {final_date}
         Resultado: {resultado_anual * 100:.2f}%
         ''')
-
+    
     return resultado_anual
+
+def encerrar_programa():
+    print("Encerrando programa... \n")
+    return
+
+def mostrar_menu():
+    while True:
+        print('''              
+            Escolha entre as seguintes opções:
+                    
+            1. Calcular o retorno total acumulado;
+            2. Calcular volatilidade;
+            3. Calcular resultado anual;
+            0. Sair;
+            ''')
+        
+        try:
+            action = int(input("Opção desejada: "))
+            return action
+        except ValueError:
+            print("Entrada inválida. Digite apenas números inteiros.")
+            continue
