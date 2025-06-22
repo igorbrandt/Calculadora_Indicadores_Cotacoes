@@ -3,27 +3,33 @@
 import pandas as pd
 
 def main():
-    action = int(input('''
-        Bem-vindo(a) à calculadora! 
-                               
-        Escolha entre as seguintes opções:
-        1. Calcular o retorno total acumulado;
-        2. Mostrar volatilidade;
-        
-        '''))
-    
-    if action == 1:
+    try:
+        action = int(input('''
+            Bem-vindo(a) à calculadora! 
+                                
+            Escolha entre as seguintes opções:
+            1. Calcular o retorno total acumulado;
+            2. Calcular volatilidade;
+            
+            '''))
+
         file_path = input('''
-        Informe o nome do seu arquivo csv, contendo as cotações a serem analisadas:
-        ''')
+            Informe o nome do seu arquivo csv, contendo as cotações a serem analisadas:
+            ''')
         open_file = read_csv(file_path)
-        mostrar_resultado_total_acumulado(open_file)
-    
-    elif action == 2:
-        mostrar_volatilidade(file_path)
-    
-    else:
-        return
+
+        if action == 1:
+            mostrar_resultado_total_acumulado(open_file)
+        
+        elif action == 2:
+            mostrar_volatilidade(file_path)
+        
+        else:
+            print("Escolha uma opção válida. \n")
+            main()
+    except ValueError:
+        print("Escolha uma opção válida. \n")
+        main()
 
 def read_csv(quotation_csv_file):
     df = pd.read_csv(quotation_csv_file, sep=';', decimal=',')
@@ -56,8 +62,9 @@ def mostrar_resultado_total_acumulado(df):
     resultado_acumulado = round(variacao*100,2)
 
     print(f'''
-        Resultado total de {initial_date} a {final_date}:
-        {resultado_acumulado}%
+        Resultado Total Acumulado
+        Período: {initial_date} a {final_date}:
+        Resultado: {resultado_acumulado}%
         ''')
     
     return resultado_acumulado
