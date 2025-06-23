@@ -2,6 +2,8 @@ import pandas as pd
 from funcoes import read_csv, mostrar_resultado_anual, mostrar_resultado_total_acumulado, mostrar_volatilidade, localizar_datas_e_cotas_iniciais_e_finais, encerrar_programa, mostrar_menu
 
 def main():
+
+    # valida o recebimento do arquivo
     while True:
         file_path: str = input('''
             Bem-vindo(a) à calculadora! 
@@ -20,6 +22,7 @@ def main():
 
     initial_date, initial_quote, final_date, final_quote = localizar_datas_e_cotas_iniciais_e_finais(open_file)
 
+    # lógica principal do código
     while True:
         action = mostrar_menu()
 
