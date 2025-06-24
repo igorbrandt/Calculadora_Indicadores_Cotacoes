@@ -82,6 +82,31 @@ def mostrar_resultado_anual(df):
     
     return resultado_anual
 
+def mostrar_indice_sharpe(df):
+    ''' IS = (Ri - Rf) / Vol
+
+            IS = Índice Sharpe
+            Ri = Retorno anual do portfolio
+            Rf = Risk Free Ratio,taxa livre de risco anual: CDI
+            Vol = Volatilidade do portfolio
+    '''
+    initial_date, initial_quote, final_date, final_quote = localizar_datas_e_cotas_iniciais_e_finais(df)
+    resultado_anual = mostrar_resultado_anual(df)*100
+    retorno_livre_de_risco = float(input("Retorno do ativo livre de risco, no formato ##.##: "))
+    volatilidade = mostrar_volatilidade(df, initial_date, final_date)
+    indice_sharpe = (resultado_anual - retorno_livre_de_risco) / volatilidade
+    
+    print(f'''
+        Índice Sharpe
+        Período: {initial_date} a {final_date}
+        Resultado Anual do Portfólio: {resultado_anual:.2f}%
+        Retorno do Ativo Livre de Risco: {retorno_livre_de_risco:.2f}%
+        Resultado: {indice_sharpe:.2f}%
+        ''')
+    
+    return indice_sharpe
+
+
 def encerrar_programa():
     print("Encerrando programa... \n")
     return
@@ -94,6 +119,7 @@ def mostrar_menu():
             1. Calcular o retorno total acumulado;
             2. Calcular volatilidade;
             3. Calcular resultado anual;
+            4. Calcular Índice Sharpe;
             0. Sair;
             ''')
         

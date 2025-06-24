@@ -1,5 +1,5 @@
 import pandas as pd
-from funcoes import read_csv, mostrar_resultado_anual, mostrar_resultado_total_acumulado, mostrar_volatilidade, localizar_datas_e_cotas_iniciais_e_finais, encerrar_programa, mostrar_menu
+from funcoes import read_csv, mostrar_resultado_anual, mostrar_resultado_total_acumulado, mostrar_volatilidade, localizar_datas_e_cotas_iniciais_e_finais, encerrar_programa, mostrar_menu, mostrar_indice_sharpe
 
 def main():
 
@@ -39,6 +39,9 @@ def main():
         elif action == 3:
             mostrar_resultado_anual(open_file)
 
+        elif action == 4:
+            mostrar_indice_sharpe(open_file)
+            
         else:
             print("Escolha uma opção válida. \n")
             continue
