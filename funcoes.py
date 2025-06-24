@@ -117,9 +117,9 @@ def mostrar_menu():
             Escolha entre as seguintes opções:
 
             Calcular:        
-            1. Retorno total acumulado;
+            1. Retorno Total Acumulado;
             2. Volatilidade;
-            3. Resultado anual;
+            3. Resultado Anual;
             4. Índice Sharpe;
             5. Maior Cota;
             6. Menor Cota;
