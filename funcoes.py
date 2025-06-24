@@ -85,14 +85,14 @@ def mostrar_resultado_anual(df):
 def mostrar_indice_sharpe(df):
     ''' IS = (Ri - Rf) / Vol
 
-            IS = Índice Sharpe
-            Ri = Retorno anual do portfolio
-            Rf = Risk Free Ratio,taxa livre de risco anual: CDI
-            Vol = Volatilidade do portfolio
+        IS = Índice Sharpe
+        Ri = Retorno anual do portfolio
+        Rf = Risk Free Ratio,taxa livre de risco anual: CDI
+        Vol = Volatilidade do portfolio
     '''
     initial_date, initial_quote, final_date, final_quote = localizar_datas_e_cotas_iniciais_e_finais(df)
     resultado_anual = mostrar_resultado_anual(df)*100
-    retorno_livre_de_risco = float(input("Retorno do ativo livre de risco, no formato ##.##: "))
+    retorno_livre_de_risco = float(input("Informe o retorno anual do ativo livre de risco, no formato ##.##: "))
     volatilidade = mostrar_volatilidade(df, initial_date, final_date)
     indice_sharpe = (resultado_anual - retorno_livre_de_risco) / volatilidade
     
@@ -115,12 +115,15 @@ def mostrar_menu():
     while True:
         print('''              
             Escolha entre as seguintes opções:
-                    
-            1. Calcular o retorno total acumulado;
-            2. Calcular volatilidade;
-            3. Calcular resultado anual;
-            4. Calcular Índice Sharpe;
-            0. Sair;
+
+            Calcular:        
+            1. Retorno total acumulado;
+            2. Volatilidade;
+            3. Resultado anual;
+            4. Índice Sharpe;
+            5. Maior Cota;
+            6. Menor Cota;
+            0. Sair.
             ''')
         
         try:
@@ -129,3 +132,24 @@ def mostrar_menu():
         except ValueError:
             print("Entrada inválida. Digite apenas números inteiros.")
             continue
+
+def mostrar_maior_cota(df):
+    maior_cota = max(df['quote'])
+
+    print(f'''
+        Maior Cota: {maior_cota}
+        ''')
+
+    return maior_cota
+
+def mostrar_menor_cota(df):
+    menor_cota = min(df['quote'])
+
+    print(f'''
+        Menor Cota: {menor_cota}
+        ''')
+
+    return menor_cota
+
+def mostrar_menor_rentabilidade_mensal(df):
+    pass
