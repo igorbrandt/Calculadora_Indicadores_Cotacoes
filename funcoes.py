@@ -123,6 +123,7 @@ def mostrar_menu():
             5. Maior Cota;
             6. Menor Cota;
             7. Maior Rentabilidade Mensal;
+            8. Menor Rentabiliade Mensal;
             0. Sair.
             ''')
         
@@ -157,7 +158,7 @@ def mostrar_maior_rentabilidade_mensal(df):
     print(cotas)
 
     # Para cada cota, calcular a rentabilidade em relação à cota anterior
-    for i in range(len(cotas)):
+    for i in range(1, len(cotas)):
         cota_atual = cotas[i]
         cota_anterior = cotas[i - 1]
 
@@ -171,5 +172,27 @@ def mostrar_maior_rentabilidade_mensal(df):
         ''')
     
     return maior_rentabilidade
-    
 
+def mostrar_menor_rentabilidade_mensal(df):
+    rentabilidades_mensais = []
+    cotas: list = df['quote'].values
+    print(cotas)
+
+    # Para cada cota, calcular a rentabilidade em relação à cota anterior
+    for i in range(1, len(cotas)):
+        cota_atual = cotas[i]
+        cota_anterior = cotas[i - 1]
+
+        if cota_anterior is None:
+            continue
+        else:
+            rentabilidade = (cota_atual / cota_anterior - 1) * 100
+            rentabilidades_mensais.append(rentabilidade)
+    
+    menor_rentabilidade = min(rentabilidades_mensais)
+
+    print(f'''
+        Maior Rentabilidade: {menor_rentabilidade:.2f}%
+        ''')
+    
+    return menor_rentabilidade
