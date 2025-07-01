@@ -106,7 +106,6 @@ def mostrar_indice_sharpe(df):
     
     return indice_sharpe
 
-
 def encerrar_programa():
     print("Encerrando programa... \n")
     return
@@ -123,6 +122,7 @@ def mostrar_menu():
             4. Índice Sharpe;
             5. Maior Cota;
             6. Menor Cota;
+            7. Maior Rentabilidade Mensal;
             0. Sair.
             ''')
         
@@ -151,5 +151,25 @@ def mostrar_menor_cota(df):
 
     return menor_cota
 
-def mostrar_menor_rentabilidade_mensal(df):
-    pass
+def mostrar_maior_rentabilidade_mensal(df):
+    rentabilidades_mensais = []
+    cotas: list = df['quote'].values
+    print(cotas)
+
+    # Para cada cota, calcular a rentabilidade em relação à cota anterior
+    for i in range(len(cotas)):
+        cota_atual = cotas[i]
+        cota_anterior = cotas[i - 1]
+
+        rentabilidade = (cota_atual / cota_anterior - 1) * 100
+        rentabilidades_mensais.append(rentabilidade)
+    
+    maior_rentabilidade = max(rentabilidades_mensais)
+
+    print(f'''
+        Maior Rentabilidade: {maior_rentabilidade:.2f}%
+        ''')
+    
+    return maior_rentabilidade
+    
+

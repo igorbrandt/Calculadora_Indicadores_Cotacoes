@@ -1,5 +1,5 @@
 import pandas as pd
-from funcoes import read_csv, mostrar_resultado_anual, mostrar_resultado_total_acumulado, mostrar_volatilidade, localizar_datas_e_cotas_iniciais_e_finais, encerrar_programa, mostrar_menu, mostrar_indice_sharpe, mostrar_maior_cota, mostrar_menor_cota
+from funcoes import read_csv, mostrar_resultado_anual, mostrar_resultado_total_acumulado, mostrar_volatilidade, localizar_datas_e_cotas_iniciais_e_finais, encerrar_programa, mostrar_menu, mostrar_indice_sharpe, mostrar_maior_cota, mostrar_menor_cota, mostrar_maior_rentabilidade_mensal
 
 def main():
 
@@ -47,6 +47,9 @@ def main():
 
         elif action == 6:
             mostrar_menor_cota(open_file)
+
+        elif action == 7:
+            mostrar_maior_rentabilidade_mensal(open_file)
             
         else:
             print("Escolha uma opção válida. \n")
